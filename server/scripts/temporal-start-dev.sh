@@ -1,0 +1,2 @@
+temporal server start-dev
+
