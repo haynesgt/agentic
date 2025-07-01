@@ -11,10 +11,12 @@
     <modules>
         <module>server</module>
         <module>worker</module>
+        <module>agent</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.version>3.5.3</spring-boot.version>
     </properties>
 
     <build>
@@ -110,6 +112,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>io.temporal</groupId>
                 <artifactId>temporal-sdk</artifactId>

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/telegram/server/src/main/main.iml" filepath="$PROJECT_DIR$/telegram/server/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/telegram/server/src/test/test.iml" filepath="$PROJECT_DIR$/telegram/server/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/agentic.iml" filepath="$PROJECT_DIR$/.idea/agentic.iml" />
     </modules>
   </component>
 </project>

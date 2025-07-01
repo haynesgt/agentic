@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="worker" />
         <module name="server" />
+        <module name="agent" />
       </profile>
     </annotationProcessing>
   </component>
