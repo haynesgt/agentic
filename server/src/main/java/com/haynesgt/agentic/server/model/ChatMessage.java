@@ -1,4 +1,4 @@
-package com.haynesgt.agentic.server;
+package com.haynesgt.agentic.server.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChatMessage {
     @Id
-    private Long id;
+    private String id;
 
-    private Long chatId;
+    private String chatId;
 
     private String text;
 }
