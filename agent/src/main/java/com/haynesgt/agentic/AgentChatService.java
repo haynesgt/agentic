@@ -3,22 +3,24 @@ package com.haynesgt.agentic;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
-import dev.langchain4j.service.SystemMessage;
-import dev.langchain4j.service.UserMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import static dev.langchain4j.model.openai.OpenAiChatModelName.GPT_4_O_MINI;
 
 @Service
 public class AgentChatService {
-    interface DogLovingAssistant {
+    private static final Logger log = LoggerFactory.getLogger(AgentChatService.class);
 
-        @SystemMessage("Quick response")
-        String getJokes(String message);
+    interface MyAssistant {
+
+        // can use @SystemPrompt
+        String getResponse(String message);
     }
 
     ChatModel chatModel;
-    DogLovingAssistant assistant;
+    MyAssistant assistant;
 
     AgentChatService() {
         chatModel = OpenAiChatModel.builder()
@@ -26,7 +28,7 @@ public class AgentChatService {
                 .modelName(GPT_4_O_MINI)
                 .build();
 
-        assistant = AiServices.create(DogLovingAssistant.class, chatModel);
+        assistant = AiServices.create(MyAssistant.class, chatModel);
     }
 
     public static void main(String[] args) {
@@ -35,6 +37,9 @@ public class AgentChatService {
     }
 
     public String getResponse(String input) {
-        return assistant.getJokes(input);
+        log.info(input);
+        String response = assistant.getResponse(input);
+        log.info(response);
+        return response;
     }
 }
