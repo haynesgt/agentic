@@ -34,7 +34,7 @@ public class TelegramApiService {
 
         // Simple JSON body
         SendMessageRequest body = new SendMessageRequest(chatId, text);
-        new SendMessage()
+ // new SendMessage();
         String jsonBody = objectMapper.writeValueAsString(body);
 
         chatMessageRepository.save(new ChatMessage(chatId, url, text));

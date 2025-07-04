@@ -1,6 +1,8 @@
-docker run --name my-postgres \
-  -e POSTGRES_PASSWORD=secret \
+POSTGRES_PASSWORD=tandrapheada
+
+docker run --rm --name my-postgres \
+  -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
   -v $(pwd)/data/pg:/var/lib/postgresql/data \
-  -p 5432:5432 \
+  -p 35432:5432 \
   -d postgres:15
 
