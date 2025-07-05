@@ -1,0 +1,23 @@
+- Setting up environment for dev / staging / testing.
+  - At first, I can run the server manually in my ec2 dev instance.
+    The telegram webhook needs to hit the server which must hist the db and the temporal instance. It is cheapest to run all these on the same instance.
+  - I can just manually build and start the server as I wish, using docker compose. That should keep things simple.
+  - For production, I could run a k8s cluster. I probably won't need prod any time soon
+- It\'s hard to develop because I need to run it on a public ip (at least for the http server) for telegram to hit it, but intellij doesn't work well over ssh.
+  - I could just reverse a port back to my local
+- Need to design the worker
+  - For performance and durability I would want to minimize the number of components involved, especially custom components
+  - The worker should have some activities
+    - get response
+    - future event CRUD
+  - How to combine ai agent with temporal? Should it be able to do tasks in parallel? And interrupt tasks?
+- Temporal or task queue? Extended Rabbit MQ? Temporal seems ideal, and it is interesting to explore this technology more
+- Arch recap:
+  - message sent to webhook
+  - http server initiates workflow with chat id and message
+  - worker loads chat history
+  - worker gets next message plus next actions from LLM
+    - next action may be a future message
+  - worker sends message to chat
+  - worker will queue the next message to send if it exists
+- In the future we may add more memory, scheduled messages, multiple simultaneous messages on a timer. For now let us focus on just one future message at a time.

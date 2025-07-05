@@ -2,6 +2,7 @@
 
 Implementing this will allow me to create interesting AI chatbots, able to message me at its own initiative.
 
+
 # Use Cases
 
 ## The User Begins Chat with Agentic
@@ -38,13 +39,32 @@ Agent: I've set up a schedule.
 
 User message + system prompt + memory -> llm -> response + memory updates + schedule creation
 
+
+# Architecture
+
+## Development
+
+Run with docker compose.
+- Postgres DB
+- Server
+- Temporal
+- Temporal Worker
+
+## QA
+
+Run with AWS Amplify
+- Postgres on personal server
+- Temporal on personal server (or temporal cloud)
+- Server on Amplify
+- Worker on personal server (cannot be a cloud function)
+- Amplify can deploy automatically
+
+
 # Roadmap
 
 ## To Do
 
 ### High Priority
-
-#### Simple LLM Telegram Bot
 
 ### Medium Priority
 
@@ -57,3 +77,5 @@ User message + system prompt + memory -> llm -> response + memory updates + sche
 #### Basic Server
 
 #### Basic Async Worker System
+
+#### Simple LLM Telegram Bot
