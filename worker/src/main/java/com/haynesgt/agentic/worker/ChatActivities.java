@@ -6,7 +6,7 @@ import io.temporal.activity.ActivityMethod;
 @ActivityInterface
 public interface ChatActivities {
     @ActivityMethod
-    void getResponse(Chat chat);
+    void getAgentReplyAndActions(Chat chat);
 
     @ActivityMethod
     void sendMessage(String chatId, ChatMessage message);

@@ -32,13 +32,13 @@ public class AgentWorkflowImpl implements AgentWorkflow {
         previousMessages.addAll(nextMessages);
         nextMessages.clear();
 
-        MyResponse response = generateResponse(previousMessages);
+        MyResponse response = getAgentReplyAndActions(previousMessages);
         Workflow.await(response.waitTime, this::hasNextMessage);
     }
 
-    private MyResponse generateResponse(List<ChatMessage> previousMessages) {
-        // run activity
-        chatActivities.getResponse(new Chat(null));
+    private MyResponse getAgentReplyAndActions(List<ChatMessage> previousMessages) {
+        // history -> message + actions
+        chatActivities.getAgentReplyAndActions(new Chat(null));
         return new MyResponse();
     }
 
@@ -57,7 +57,7 @@ public class AgentWorkflowImpl implements AgentWorkflow {
         if (nextMessages.isEmpty()) {
             return null;
         }
-        return nextMessages.remove(0);
+        return nextMessages.removeFirst();
     }
 
     private boolean hasNextMessage() {

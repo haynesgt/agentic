@@ -2,7 +2,7 @@ package com.haynesgt.agentic.worker;
 
 public class ChatActivitiesImpl implements ChatActivities {
     @Override
-    public void getResponse(Chat chat) {
+    public void getAgentReplyAndActions(Chat chat) {
     }
 
     @Override
