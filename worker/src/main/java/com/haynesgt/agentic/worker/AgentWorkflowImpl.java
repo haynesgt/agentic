@@ -23,6 +23,7 @@ public class AgentWorkflowImpl implements AgentWorkflow {
 
     @Override
     public void chat(ChatInput chat) {
+        // TODO continue-as-new for long chats
         if (previousMessages.isEmpty()) {
             sendMessage(chat.getChatId(), INITIAL_MESSAGE);
         }
