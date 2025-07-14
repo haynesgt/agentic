@@ -1,4 +1,4 @@
-package com.haynesgt.agentic.server;
+package com.haynesgt.agentic.worker;
 
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
@@ -21,7 +21,7 @@ public class AgenticTelegramApp {
         // Workflow options configure  Workflow stubs.
         // A WorkflowId prevents duplicate instances, which are removed.
         WorkflowOptions options = WorkflowOptions.newBuilder()
-                .setTaskQueue(Shared.MONEY_TRANSFER_TASK_QUEUE)
+                .setTaskQueue(Shared.AGENT_MAIN_TASK_QUEUE)
                 .setWorkflowId("money-transfer-workflow")
                 .build();
 

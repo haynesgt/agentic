@@ -1,4 +1,4 @@
-package com.haynesgt.agentic.server;
+package com.haynesgt.agentic.worker;
 
 import java.time.Duration;
 

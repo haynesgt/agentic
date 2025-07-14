@@ -21,3 +21,17 @@
   - worker sends message to chat
   - worker will queue the next message to send if it exists
 - In the future we may add more memory, scheduled messages, multiple simultaneous messages on a timer. For now let us focus on just one future message at a time.
+- I have a basic design going for the agentic workflow implementation
+  - Need to figure out invocation of the workflow. 
+    - When new message is received:
+      - start workflow if it is not already running
+      - otherwise send a signal of the next message
+  - Need to figure out message streaming i.e. multiple short messages from llm instead of one big one
+
+- To make it testable, I need to decouple from the Telegram API for local testing.
+- I want to make the core features of the system invokable in a synchronous manner. I still need Temporal for
+  the timers and schedules. Maybe there is simply no perfect solution here.
+  - I wonder about possibilities other than Temporal. I want to have a list of timers / schedules that the AI can
+    manage. 
+  - Temporal might not be ideal just for timers and schedules, but it is a very flexible framework, so I may be able to
+    do interesting things with it in the future.
