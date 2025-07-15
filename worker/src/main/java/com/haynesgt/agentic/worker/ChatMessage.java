@@ -6,6 +6,6 @@ import lombok.Value;
 @Value
 @Builder
 public class ChatMessage {
-    String role;
+    ChatMessageRole role;
     String text;
 }
