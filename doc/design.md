@@ -52,7 +52,7 @@ Run with docker compose.
 
 ## QA
 
-Run with AWS Amplify
+Run on custom server
 - Postgres on personal server
 - Temporal on personal server (or temporal cloud)
 - Server on Amplify
@@ -66,7 +66,13 @@ Run with AWS Amplify
 
 ### High Priority
 
+- Make a workflow that does the chat
+- Make the server send updates to the workflow when messages are received 
+  - or start a new workflow
+
 ### Medium Priority
+
+- Make a UI to test the app
 
 #### Add basic reminders + scheduling
 

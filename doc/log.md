@@ -35,3 +35,4 @@
     manage. 
   - Temporal might not be ideal just for timers and schedules, but it is a very flexible framework, so I may be able to
     do interesting things with it in the future.
+- Let's review the roadmap

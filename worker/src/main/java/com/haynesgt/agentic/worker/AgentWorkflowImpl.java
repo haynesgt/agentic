@@ -1,11 +1,14 @@
 package com.haynesgt.agentic.worker;
 
 import io.temporal.workflow.SignalMethod;
+import io.temporal.workflow.UpdateMethod;
 import io.temporal.workflow.Workflow;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AgentWorkflowImpl implements AgentWorkflow {
 
@@ -13,10 +16,7 @@ public class AgentWorkflowImpl implements AgentWorkflow {
 
     private final ChatActivities chatActivities;
 
-    private final List<ChatMessage> previousMessages = new ArrayList<>();
     private final List<ChatMessage> nextMessages = new ArrayList<>();
-    private final Map<String, String> notes = new HashMap<>();
-    private final List<AgentTimer> timers = new ArrayList<>();
 
     public AgentWorkflowImpl(ChatActivities chatActivities) {
         this.chatActivities = chatActivities;
@@ -25,45 +25,55 @@ public class AgentWorkflowImpl implements AgentWorkflow {
 
     @Override
     public void chat(ChatInput chat) {
-        // TODO continue-as-new for long chats
+        Instant now = Instant.ofEpochMilli(Workflow.currentTimeMillis());
+        List<ChatMessage> previousMessages = chat.messages();
+        String messageText;
+        List<AgentTimer> newTimers;
         if (previousMessages.isEmpty()) {
-            sendMessage(chat.getChatId(), INITIAL_MESSAGE);
+            messageText = INITIAL_MESSAGE;
+            newTimers = chat.timers();
+        } else {
+            AgentReplyAndActions response = getAgentReplyAndActions(chat);
+            messageText = response.messageText();
+            newTimers = Stream.concat(chat.timers().stream(), response.addTimers().stream())
+                    .filter(timer -> timer.time() != null)
+                    .filter(timer -> timer.time().isBefore(now))
+                    .filter(timer -> !response.removeTimers().contains(timer))
+                    .collect(Collectors.toList());
         }
 
-        Duration durationToNextTimer = timers.isEmpty() ? null : Duration.between(Instant.ofEpochMilli(Workflow.currentTimeMillis()), timers.getFirst().time());
+        sendMessage(chat.chatId(), messageText);
+
+        Optional<AgentTimer> nextTimer = newTimers.stream().min(Comparator.comparing(AgentTimer::time));
+        Duration durationToNextTimer = nextTimer.map(AgentTimer::time)
+                .map(nextTimerTime -> Duration.between(Instant.ofEpochMilli(Workflow.currentTimeMillis()), nextTimerTime))
+                .orElse(null);
         Workflow.await(durationToNextTimer, this::hasNextMessage);
 
-        //noinspection InfiniteLoopStatement
-        while (true) {
-            previousMessages.addAll(nextMessages);
-            nextMessages.clear();
-
-            AgentReplyAndActions response = getAgentReplyAndActions(previousMessages);
-            timers.addAll(response.addTimers());
-            timers.removeIf(
-                    timer -> timer.time() == null || timer.time().isAfter(Instant.ofEpochMilli(Workflow.currentTimeMillis())) || response.removeTimers().contains(timer)
-            );
-            timers.sort(Comparator.comparing(AgentTimer::time));
-
-            // find time to next message
-
-            Workflow.await(null, this::hasNextMessage);
-            Workflow.continueAsNew(
-                    chat
-            );
-        }
+        Workflow.continueAsNew(
+            chat.toBuilder()
+                .messages(
+                    Stream.concat(
+                        Stream.concat(
+                            previousMessages.stream(),
+                            nextMessages.stream()
+                        ),
+                        Stream.of(ChatMessage.builder().text(messageText).build())
+                    ).collect(Collectors.toList())
+                )
+                .timers(newTimers)
+        );
     }
 
-    private AgentReplyAndActions getAgentReplyAndActions(List<ChatMessage> previousMessages) {
-        // history -> message + actions
-        chatActivities.getAgentReplyAndActions(
+    private AgentReplyAndActions getAgentReplyAndActions(ChatInput chat) {
+        // history -> messageText + actions
+        return chatActivities.getAgentReplyAndActions(
                 AgentRequest.builder()
-                        .messages(previousMessages)
+                        .messages(chat.messages())
                         // .notes(notes)
-                        .timers(timers)
+                        .timers(chat.timers())
                         .build()
         );
-        return new AgentReplyAndActions();
     }
 
     @SignalMethod
@@ -71,9 +81,13 @@ public class AgentWorkflowImpl implements AgentWorkflow {
         this.nextMessages.add(message);
     }
 
+    @UpdateMethod
+    public void messageUpdate(ChatMessage message) {
+        this.nextMessages.add(message);
+    }
+
     private void sendMessage(String chatId, String messageText) {
         ChatMessage message = ChatMessage.builder().role(ChatMessageRole.AGENT).text(messageText).build();
-        this.previousMessages.add(message);
         chatActivities.sendMessage(chatId, message);
     }
 

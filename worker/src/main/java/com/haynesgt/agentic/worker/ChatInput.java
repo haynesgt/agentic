@@ -1,10 +1,11 @@
 package com.haynesgt.agentic.worker;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.Getter;
+import lombok.Builder;
+
+import java.util.List;
 
 @JsonDeserialize
-@Getter
-public class ChatInput {
-    String chatId;
+@Builder(toBuilder = true)
+public record ChatInput(String chatId, List<ChatMessage> messages, List<AgentTimer> timers) {
 }
