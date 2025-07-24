@@ -20,7 +20,6 @@ public class AgentWorkflowImpl implements AgentWorkflow {
 
     public AgentWorkflowImpl(ChatActivities chatActivities) {
         this.chatActivities = chatActivities;
-
     }
 
     @Override

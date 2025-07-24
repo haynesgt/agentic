@@ -36,3 +36,7 @@
   - Temporal might not be ideal just for timers and schedules, but it is a very flexible framework, so I may be able to
     do interesting things with it in the future.
 - Let's review the roadmap
+- How the server should work
+  - getChat: get chat log from db
+  - sendMessage: start or update workflow with message. should send message text, chat id, and webhook for push notification
+- We'll need a vapid key for the push updates. Seems complicated. This part can be added later

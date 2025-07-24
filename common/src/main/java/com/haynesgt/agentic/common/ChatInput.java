@@ -1,4 +1,4 @@
-package com.haynesgt.agentic.worker;
+package com.haynesgt.agentic.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;

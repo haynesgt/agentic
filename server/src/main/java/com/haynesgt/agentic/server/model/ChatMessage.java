@@ -15,5 +15,7 @@ public class ChatMessage {
 
     private String chatId;
 
+    private ChatMessageRole role;
+
     private String text;
 }

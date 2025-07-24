@@ -1,4 +1,4 @@
-package com.haynesgt.agentic.worker;
+package com.haynesgt.agentic.common;
 
 import io.temporal.workflow.WorkflowInterface;
 import io.temporal.workflow.WorkflowMethod;
