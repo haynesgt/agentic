@@ -1,7 +1,8 @@
-package com.haynesgt.agentic.server.model;
+package com.haynesgt.agentic.common;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatMessage {
+@Builder
+public class ChatMessageEntity {
     @Id
     private String id;
 

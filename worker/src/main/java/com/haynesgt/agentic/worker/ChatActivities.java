@@ -1,5 +1,6 @@
 package com.haynesgt.agentic.worker;
 
+import com.haynesgt.agentic.common.ChatMessage;
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 

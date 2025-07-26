@@ -2,12 +2,11 @@ package com.haynesgt.agentic.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.haynesgt.agentic.server.model.ChatMessage;
+import com.haynesgt.agentic.common.ChatMessageEntity;
 import com.haynesgt.agentic.server.repository.ChatMessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -34,10 +33,15 @@ public class TelegramApiService {
 
         // Simple JSON body
         SendMessageRequest body = new SendMessageRequest(chatId, text);
- // new SendMessage();
         String jsonBody = objectMapper.writeValueAsString(body);
 
-        chatMessageRepository.save(new ChatMessage(chatId, url, text));
+        chatMessageRepository.save(
+                ChatMessageEntity.builder()
+                        .chatId(chatId)
+                        // .url(url)
+                        .text(text)
+                        .build());
+
 
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()

@@ -9,9 +9,10 @@
     <url>http://maven.apache.org</url>
 
     <modules>
+        <module>common</module>
+        <module>agent</module>
         <module>server</module>
         <module>worker</module>
-        <module>agent</module>
     </modules>
 
     <properties>
@@ -24,7 +25,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.14.0</version>
                 <configuration>
                     <source>21</source>
                     <target>21</target>
@@ -55,8 +56,20 @@
 
                 <!-- Maven Compiler plugin -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.14.0</version>
+                    <configuration>
+                        <source>21</source>
+                        <target>21</target>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>1.18.38</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
                 </plugin>
 
                 <!-- Maven Surefire plugin -->
@@ -123,7 +136,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.30</version> <!-- or latest -->
+                <version>1.18.38</version>
                 <scope>provided</scope>
             </dependency>
 
