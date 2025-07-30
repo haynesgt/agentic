@@ -40,3 +40,8 @@
   - getChat: get chat log from db
   - sendMessage: start or update workflow with message. should send message text, chat id, and webhook for push notification
 - We'll need a vapid key for the push updates. Seems complicated. This part can be added later
+- I need to just work out some of the communication schemas between various things. 
+- First though I want to just get the worker running and get the server running even if they don't do anything
+  - running `docker up` should run a server and run a worker and run the temporal system and run postgres.
+    - and run migrations. we can do that in another step. we don't even need to connect to pg yet. I just want the 
+      skeleton to be working now
