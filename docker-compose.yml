@@ -1,9 +1,9 @@
 version: "3.9"
 services:
   postgres:
-    image: postgres
+    image: postgres:17
     ports:
-      - "5432:5432"
+      - "25432:5432"
     volumes:
       - "./data:/var/lib/postgresql/data"
     environment:
@@ -17,11 +17,13 @@ services:
     depends_on:
       - postgres
     environment:
-      - DB=postgresql
+      - TEMPORAL_ADDRESS=0.0.0.0:7233
+      - DB=postgres12
       - DB_PORT=5432
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PWD=postgres
       - POSTGRES_SEEDS=postgres
+      - POSTGRES_DB=temporal
       - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development.yaml
 
   app:
@@ -29,7 +31,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/app
+      - .:/home/app
     environment:
       - DB=postgresql
       - DB_PORT=5432

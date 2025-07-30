@@ -45,3 +45,31 @@
   - running `docker up` should run a server and run a worker and run the temporal system and run postgres.
     - and run migrations. we can do that in another step. we don't even need to connect to pg yet. I just want the 
       skeleton to be working now
+
+2025-07-29T19:08:43.782Z
+- docker compose up runs without error
+- I need to make the app run and I need to make the temporal server run because it stopped and the app just ran jshell
+  ```
+  temporalio-1  | TEMPORAL_ADDRESS is not set, setting it to 172.18.0.4:7233
+  temporalio-1  | Unsupported driver specified: 'DB=postgresql'. Valid drivers are: mysql8, postgres12, postgres12_pgx, cassandra.
+  app-1         | |  Welcome to JShell -- Version 21
+  app-1         | |  For an introduction type: /help intro
+  app-1         |
+  app-1         | jshell>
+  app-1 exited with code 0
+  ```
+- fix: set postgres tag to 1.17 and changed db to postgres12 and set TEMPORAL_ADDRESS to 0.0.0.0
+  
+  now:
+  ```
+  temporalio-1  | 2025-07-30T02:14:21.589Z        ERROR   sql handle: unable to refresh database connection pool  {"error": "unable to connect to DB, tried default DB names: postgres,defaultdb, errors: [pq: password authentication failed for user \"postgres\" pq: password authentication failed for user \"postgres\"]", "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/common/persistence/sql/sqlplugin/db_handle.go:105"}
+  temporalio-1  | 2025-07-30T02:14:21.589Z        WARN    sql handle: did not refresh database connection pool because the last refresh was too close     {"min_refresh_interval_seconds": 1, "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/common/persistence/sql/sqlplugin/db_handle.go:95"}
+  temporalio-1  | 2025-07-30T02:14:21.589Z        ERROR   Unable to create SQL database.  {"error": "no usable database connection found", "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/tools/sql/handler.go:69"}
+  ```
+- ```
+  temporalio-1  | 2025-07-30T05:58:24.575Z        ERROR   sql handle: unable to refresh database connection pool  {"error": "unable to connect to DB, tried default DB names: postgres,defaultdb, errors: [pq: the database system is starting up pq: the database system is starting up]", "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/common/persistence/sql/sqlplugin/db_handle.go:105"}
+  temporalio-1  | 2025-07-30T05:58:24.575Z        WARN    sql handle: did not refresh database connection pool because the last refresh was too close     {"min_refresh_interval_seconds": 1, "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/common/persistence/sql/sqlplugin/db_handle.go:95"}
+  temporalio-1  | 2025-07-30T05:58:24.576Z        ERROR   Unable to create SQL database.  {"error": "no usable database connection found", "logging-call-at": "/home/runner/work/docker-builds/docker-builds/temporal/tools/sql/handler.go:69"}
+  ```
+- (that is part of the same error. does docker compose auto restart containers?)
+- fix was to use POSTGRES_PWD instead of POSTGRES_PASSWORD in the temporal container in docker compose
