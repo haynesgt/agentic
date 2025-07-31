@@ -73,3 +73,7 @@
   ```
 - (that is part of the same error. does docker compose auto restart containers?)
 - fix was to use POSTGRES_PWD instead of POSTGRES_PASSWORD in the temporal container in docker compose
+- `temporalio-1  | Unable to create dynamic config client. Error: unable to validate dynamic config: dynamic config: config/dynamicconfig/development.yaml: stat config/dynamicconfig/development.yaml: no such file or directory`
+- fixed by copying files and creating that file in particular
+- `temporalio-1  | time=2025-07-31T01:34:46.807 level=ERROR msg="failed reaching server: connection error: desc = \"transport: Error while dialing: dial tcp 0.0.0.0:7233: connect: connection refused\""`
+- fixed: had to set TEMPORAL_ADDRESS=temporal:7233, not TEMPORAL_ADDRESS=localhost:7233 or TEMPORAL_ADDRESS=0.0.0.0:7233

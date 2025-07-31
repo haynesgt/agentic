@@ -10,14 +10,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
-  temporalio:
+  temporal:
     image: temporalio/auto-setup:latest
     ports:
       - "7233:7233"
     depends_on:
       - postgres
     environment:
-      - TEMPORAL_ADDRESS=0.0.0.0:7233
+      - TEMPORAL_ADDRESS=temporal:7233
       - DB=postgres12
       - DB_PORT=5432
       - POSTGRES_USER=postgres
@@ -25,6 +25,8 @@ services:
       - POSTGRES_SEEDS=postgres
       - POSTGRES_DB=temporal
       - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development.yaml
+    volumes:
+      - ./dynamicconfig:/etc/temporal/config/dynamicconfig
 
   app:
     build:
