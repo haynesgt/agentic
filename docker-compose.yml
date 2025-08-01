@@ -32,11 +32,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/home/app
     environment:
       - DB=postgresql
       - DB_PORT=5432
+      - POSTGRES_HOST=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-
+      - POSTGRES_PASS=postgres

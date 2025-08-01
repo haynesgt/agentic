@@ -17,7 +17,7 @@ import java.net.http.HttpResponse;
 @Service
 public class TelegramApiService {
 
-    @Value("${telegram.bot.token}")
+    @Value("${telegram.bot.token:placeholder}")
     private String botToken;
 
     private final ObjectMapper objectMapper;

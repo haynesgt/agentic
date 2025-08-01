@@ -77,3 +77,12 @@
 - fixed by copying files and creating that file in particular
 - `temporalio-1  | time=2025-07-31T01:34:46.807 level=ERROR msg="failed reaching server: connection error: desc = \"transport: Error while dialing: dial tcp 0.0.0.0:7233: connect: connection refused\""`
 - fixed: had to set TEMPORAL_ADDRESS=temporal:7233, not TEMPORAL_ADDRESS=localhost:7233 or TEMPORAL_ADDRESS=0.0.0.0:7233
+- for debugging, run docker build --progress=plain .
+- now I need my telegram bot token to be optional. Later I will want to somehow pass this token through docker compose
+- fixed server.port
+- `app-1  | Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.haynesgt.agentic.common.ChatMessageEntity`
+  added @EntityScan(basePackages = "com.haynesgt.agentic.common") to the AgenticServerApplication
+- `app-1  | Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.RuntimeException: Driver org.postgresql.Driver claims to not accept jdbcUrl, jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PASS}/agentic`
+  fixed by removing POSTGRES_PASS from place where port should be and using POSTGERS_PORT instead.
+- `app-1  | Caused by: org.postgresql.util.PSQLException: FATAL: database "agentic" does not exist`
+  Need to create some scripts to run when the database starts up. Maybe use flyway

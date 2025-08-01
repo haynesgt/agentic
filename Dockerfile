@@ -10,7 +10,7 @@ COPY common/pom.xml ./common/pom.xml
 
 RUN mvn dependency:go-offline -B
 
-COPY . /home/app/
+COPY . .
 
 RUN mvn clean install
 
@@ -18,6 +18,8 @@ RUN find  -name '*.jar'
 
 FROM openjdk:21-jdk-slim
 
-COPY --from=build /home/app/server/target/*.jar app.jar
+WORKDIR /home/app
+
+COPY --from=build /home/app/server/target/server-1.0-SNAPSHOT.jar app.jar
 
 CMD ["java","-jar","app.jar"]

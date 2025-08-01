@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RootController {
 
     private static final Logger log = LoggerFactory.getLogger(RootController.class);
-    @Value("${telegram.bot.token}")
+    @Value("${telegram.bot.token:placeholder}")
     String token;
 
-    @Value("${server.port}")
+    @Value("${server.port:3000}")
     String server_port;
 
     @GetMapping("/")
