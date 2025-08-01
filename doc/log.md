@@ -86,4 +86,7 @@
   fixed by removing POSTGRES_PASS from place where port should be and using POSTGERS_PORT instead.
 - `app-1  | Caused by: org.postgresql.util.PSQLException: FATAL: database "agentic" does not exist`
   Need to create some scripts to run when the database starts up. Maybe use flyway
+- I would want both the worker and the server to connect to the DB I think. Or should we have a dedicated server to
+  save/load data? I think that would just complicate things. So both the server and the worker should have Flyway,
+  and auto migrate on start if needed
 - 
