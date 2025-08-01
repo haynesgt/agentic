@@ -86,3 +86,4 @@
   fixed by removing POSTGRES_PASS from place where port should be and using POSTGERS_PORT instead.
 - `app-1  | Caused by: org.postgresql.util.PSQLException: FATAL: database "agentic" does not exist`
   Need to create some scripts to run when the database starts up. Maybe use flyway
+- 

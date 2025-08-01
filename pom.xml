@@ -45,16 +45,11 @@
                     <version>3.1.0</version>
                 </plugin>
 
-                <!--
-                   Maven Resources plugin: default lifecycle, jar packaging, see:
-                   https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging
-                  -->
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
                 </plugin>
 
-                <!-- Maven Compiler plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -72,48 +67,38 @@
                     </configuration>
                 </plugin>
 
-                <!-- Maven Surefire plugin -->
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.1</version>
                 </plugin>
 
-                <!-- Maven JAR plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.0</version>
                 </plugin>
 
-                <!-- Exec Maven plugin -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
 
-                <!-- Maven Install plugin -->
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.5.2</version>
                 </plugin>
 
-                <!-- Maven Deploy plugin -->
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
 
-                <!--
-                   Maven Site lifecycle plugin, see:
-                   https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle
-                 -->
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.7.1</version>
                 </plugin>
 
-                <!-- Maven Project Info Reports plugin -->
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
