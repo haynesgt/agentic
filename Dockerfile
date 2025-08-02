@@ -18,8 +18,16 @@ RUN find  -name '*.jar'
 
 FROM openjdk:21-jdk-slim
 
+ARG POSTGRES_USER
+ARG POSTGRESS_PASS
+ARG POSTGRESS_SCHEMA=dev
+
 WORKDIR /home/app
 
 COPY --from=build /home/app/server/target/server-1.0-SNAPSHOT.jar app.jar
+
+RUN echo flyway.user=${POSTGRES_USER} \
+    flyway.password=${POSTGRES_PASS} \
+    flyway.schemas=${POSTGRES_SCHEMA} > flyway.conf
 
 CMD ["java","-jar","app.jar"]

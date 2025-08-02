@@ -89,4 +89,6 @@
 - I would want both the worker and the server to connect to the DB I think. Or should we have a dedicated server to
   save/load data? I think that would just complicate things. So both the server and the worker should have Flyway,
   and auto migrate on start if needed
-- 
+- The example shows putting password in a file. For security, we need the password to be passed via env var.
+  maybe we can use flyway.conf in the working dir, or generate the file from the environment. I'll do the latter,
+  adding flyway.conf
