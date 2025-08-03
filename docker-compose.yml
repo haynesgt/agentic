@@ -1,11 +1,11 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:17
     ports:
       - "25432:5432"
     volumes:
-      - "./data:/var/lib/postgresql/data"
+      - "pg-data:/var/lib/postgresql/data"
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -18,7 +18,7 @@ services:
       - postgres
     environment:
       - TEMPORAL_ADDRESS=temporal:7233
-      - DB=postgres12
+      - DB=agentic_temporal_dev
       - DB_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_PWD=postgres
@@ -28,13 +28,16 @@ services:
     volumes:
       - ./dynamicconfig:/etc/temporal/config/dynamicconfig
 
-  app:
+  server:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - DB=postgresql
+      - DB=agentic_dev
       - DB_PORT=5432
       - POSTGRES_HOST=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASS=postgres
+
+volumes:
+  pg-data:

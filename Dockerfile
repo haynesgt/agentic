@@ -8,7 +8,8 @@ COPY server/pom.xml ./server/pom.xml
 COPY worker/pom.xml ./worker/pom.xml
 COPY common/pom.xml ./common/pom.xml
 
-RUN mvn dependency:go-offline -B
+RUN --mount=type=cache,target=/root/.m2\
+    mvn dependency:go-offline -B
 
 COPY . .
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import(AgentChatService.class)
-@EntityScan(basePackages = "com.haynesgt.agentic.common")
+@EntityScan(basePackages = {"com.haynesgt.agentic.common","com.haynesgt.agentic.server"})
 public class AgenticServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(AgenticServerApplication.class, args);
