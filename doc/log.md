@@ -89,4 +89,4 @@
 - I would want both the worker and the server to connect to the DB I think. Or should we have a dedicated server to
   save/load data? I think that would just complicate things. So both the server and the worker should have Flyway,
   and auto migrate on start if needed
-- 
+- I'll remove flyway for now and just use an init SQL script
