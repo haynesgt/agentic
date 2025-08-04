@@ -32,6 +32,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     environment:
       - DB=agentic_dev
       - DB_PORT=5432

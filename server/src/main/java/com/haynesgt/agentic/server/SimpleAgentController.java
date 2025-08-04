@@ -29,7 +29,7 @@ public class SimpleAgentController {
         this.client = client;
     }
 
-    @GetMapping
+    @GetMapping("/send-message")
     public void sendMessage(@RequestParam String chatId, @RequestParam String message) {
         WorkflowServiceStubs service = WorkflowServiceStubs.newLocalServiceStubs();
         WorkflowClient client = WorkflowClient.newInstance(service);
@@ -40,12 +40,12 @@ public class SimpleAgentController {
                 .build());
     }
 
-    @GetMapping
+    @GetMapping("await-next-message")
     public void awaitNextMessage(@RequestParam String chatId) {
 
     }
 
-    @GetMapping
+    @GetMapping("get-chat")
     public ChatResponse getChat(@RequestParam String chatId) {
         List<ChatMessageEntity> messages = chatMessageRepository.findByChatId(chatId);
         return ChatResponse.builder()

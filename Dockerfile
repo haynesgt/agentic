@@ -13,7 +13,8 @@ RUN --mount=type=cache,target=/root/.m2\
 
 COPY . .
 
-RUN mvn clean install
+RUN --mount=type=cache,target=/root/.m2\
+    mvn clean install
 
 RUN find  -name '*.jar'
 
