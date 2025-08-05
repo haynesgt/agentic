@@ -1,0 +1,27 @@
+graph TD
+    subgraph User Interaction
+        USER_SEND([Send Message])
+        USER_READ([Read Message])
+    end
+
+    subgraph Server
+        SERVER_SEND([/send_message])
+        SERVER_READ([/read_messages])
+    end
+
+    subgraph Temporal System
+        T1([Chat Workflow])
+        T2([Reminder/Schedule Timer])
+    end
+
+    subgraph Infrastructure
+        DB[(PostgreSQL DB)]
+        TEMPORAL[Temporal Server]
+        WORKER[Temporal Worker]
+        API[(Hosted Server / API - Amplify)]
+    end
+
+    USER_SEND --> SERVER_SEND
+    USER_READ --> SERVER_READ
+
+%% -->|x|

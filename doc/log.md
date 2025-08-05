@@ -90,3 +90,7 @@
   save/load data? I think that would just complicate things. So both the server and the worker should have Flyway,
   and auto migrate on start if needed
 - I'll remove flyway for now and just use an init SQL script
+- I have the server starting up and running now. I need to add some CRUD functionality to manage chats.
+  - save chat message from user or agent
+  - load chat history
+- It would be helpful to draw this out.
