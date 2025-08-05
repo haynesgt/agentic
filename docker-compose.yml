@@ -32,8 +32,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: server
     ports:
       - "3000:3000"
+    environment:
+      - DB=agentic_dev
+      - DB_PORT=5432
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=postgres
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: worker
     environment:
       - DB=agentic_dev
       - DB_PORT=5432

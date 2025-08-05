@@ -18,18 +18,14 @@ RUN --mount=type=cache,target=/root/.m2\
 
 RUN find  -name '*.jar'
 
+# SERVER
 FROM openjdk:21-jdk-slim AS server
-
 WORKDIR /home/app
-
 COPY --from=build /home/app/server/target/server-1.0-SNAPSHOT.jar app.jar
-
 CMD ["java","-jar","app.jar"]
 
+# WORKER
 FROM openjdk:21-jdk-slim AS worker
-
 WORKDIR /home/app
-
-COPY --from=build /home/app/server/target/worker-1.0-SNAPSHOT.jar app.jar
-
+COPY --from=build /home/app/worker/target/worker-1.0-SNAPSHOT.jar app.jar
 CMD ["java","-jar","app.jar"]
