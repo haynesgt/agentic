@@ -1,4 +1,4 @@
-package com.haynesgt.agentic;
+package com.haynesgt.agentic.agent;
 
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;

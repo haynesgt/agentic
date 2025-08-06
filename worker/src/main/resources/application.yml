@@ -1,0 +1,19 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+server:
+  port: 3030
+
+spring:
+  application:
+    name: temporal-demo
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB:agentic_dev}
+    username: postgres
+    password: ${POSTGRES_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

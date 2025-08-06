@@ -1,6 +1,7 @@
 package com.haynesgt.agentic.worker;
 
 import com.haynesgt.agentic.common.*;
+import io.temporal.activity.ActivityOptions;
 import io.temporal.workflow.SignalMethod;
 import io.temporal.workflow.UpdateMethod;
 import io.temporal.workflow.Workflow;
@@ -19,8 +20,11 @@ public class AgentWorkflowImpl implements AgentWorkflow {
 
     private final List<ChatMessage> nextMessages = new ArrayList<>();
 
-    public AgentWorkflowImpl(ChatActivities chatActivities) {
-        this.chatActivities = chatActivities;
+    public AgentWorkflowImpl() {
+        ActivityOptions options = ActivityOptions.newBuilder()
+                .setStartToCloseTimeout(Duration.ofSeconds(10))
+                .build();
+        this.chatActivities = Workflow.newActivityStub(ChatActivities.class, options);
     }
 
     @Override
