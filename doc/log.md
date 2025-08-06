@@ -94,3 +94,4 @@
   - save chat message from user or agent
   - load chat history
 - It would be helpful to draw this out.
+- Tomorrow I will get basic things going so as to ensure the server can connect to the DB and the worker can execute jobs and also connect to the DB.
