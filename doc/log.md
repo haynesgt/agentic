@@ -95,3 +95,5 @@
   - load chat history
 - It would be helpful to draw this out.
 - Tomorrow I will get basic things going so as to ensure the server can connect to the DB and the worker can execute jobs and also connect to the DB.
+- I am adding some test method to test that the workflow execution is working properly. 
+- Done. I also fixed temporal ui and a bunch of configs. My set-up is a little jank now though. Need to figure out how to use env vars to configure everything.

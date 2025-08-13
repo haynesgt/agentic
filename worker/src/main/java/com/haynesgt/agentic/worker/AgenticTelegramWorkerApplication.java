@@ -1,5 +1,6 @@
 package com.haynesgt.agentic.worker;
 
+import com.haynesgt.agentic.common.AgenticTestWorkflow;
 import io.temporal.client.WorkflowClient;
 import io.temporal.serviceclient.WorkflowServiceStubs;
 import io.temporal.serviceclient.WorkflowServiceStubsOptions;
@@ -24,9 +25,9 @@ public class AgenticTelegramWorkerApplication {
 
         WorkerFactory factory = WorkerFactory.newInstance(client);
 
-        Worker worker = factory.newWorker("MY_DEFAULT_TASK_QUEUE");
+        Worker worker = factory.newWorker("test-task-queue");
 
-        worker.registerWorkflowImplementationTypes(AgentWorkflowImpl.class);
+        worker.registerWorkflowImplementationTypes(AgentWorkflowImpl.class, AgenticTestWorkflowImpl.class);
 
         worker.registerActivitiesImplementations(new ChatActivitiesImpl());
 

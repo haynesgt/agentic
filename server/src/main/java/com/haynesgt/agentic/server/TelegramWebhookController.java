@@ -2,6 +2,7 @@ package com.haynesgt.agentic.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.haynesgt.agentic.agent.AgentChatService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 public class TelegramWebhookController {
-
-    private static final Logger log = LoggerFactory.getLogger(TelegramWebhookController.class);
 
     private final AgentChatService agentChatService;
     private final TelegramApiService telegramApiService;
